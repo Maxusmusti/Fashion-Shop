@@ -29,5 +29,5 @@ def test():
 
 def index():
     
-    return render_template("index.html"), token="penpineappleapplepen")
+    return render_template("index.html", token="penpineappleapplepen")
 flask_backend.run(debug=True, use_reloader=False)
