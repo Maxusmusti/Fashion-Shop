@@ -1,0 +1,43 @@
+p {
+    font-family: "Century Gothic", Futura, sans-serif;
+}
+
+.name {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.vendor {
+    font-size: 14px;
+}
+
+.price {
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.itemcard {
+    box-shadow: 0rem 0rem 0rem rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    width: 250px;
+    margin: 0.5rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.itemcard:hover {
+    box-shadow: 0rem 0rem 3rem rgba(0, 0, 0, 0.1);
+}
+
+.iteminfo {
+    padding: 0.5rem;
+}
+
+.itemimage {
+    width: 100%;
+    margin: auto;
+}
