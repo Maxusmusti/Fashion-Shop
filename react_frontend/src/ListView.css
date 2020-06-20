@@ -21,7 +21,6 @@ a {
 }
 
 .itemcard {
-    box-shadow: 0rem 0rem 0rem rgba(0, 0, 0, 0.1);
     transition: 0.3s;
     width: 250px;
     margin: 0.5rem;
@@ -49,4 +48,8 @@ a {
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+
+.ListView {
+    padding: 2rem;
 }

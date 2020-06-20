@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import Button from '@material-ui/core/Button';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Spring, config, Transition } from 'react-spring/renderprops'
 import './Popup.css';
 
 export default class Popup extends React.Component {
@@ -13,39 +13,87 @@ export default class Popup extends React.Component {
         for (let i = 0; i < props.itemData.item_images.length; i++) {
             this.images.push(
                 <img draggable="false"
-                    class="thumbnail"
+                    className="thumbnail"
                     src={props.itemData.item_images[i]}
                     alt={props.itemData.item_name}
+                    key={props.itemData.item_images[i]}
                 ></img>
             )
         }
     }
 
     render() {
+        const show = this.props.showPopup;
+        const itemCardRect = this.props.getItemCardRect();
+        const startTop = itemCardRect ? 100 * itemCardRect.top / window.innerHeight + '%' : '0%';
+        const startBottom = itemCardRect ? 100 * (1 - itemCardRect.bottom / window.innerHeight) + '%' : '0%';
+        const startLeft = itemCardRect ? 100 * itemCardRect.left / window.innerWidth + '%' : '0%';
+        const startRight = itemCardRect ? 100 * (1 - itemCardRect.right / window.innerWidth) + '%' : '0%';
+
         return (
-            <div class='popup'>
-                <OutsideAlerter closePopup={this.props.closePopup.bind(this)}>
-                    <div class='popup_inner'>
-                        <div class="scroll">
-                            <h1 style={{ padding: '2px', margin: 0 }}>{this.props.itemData.item_name}</h1>
-                            <p class="popup_vendor">{this.props.itemData.item_vendor}</p>
-                            <p class="popup_price">{this.props.itemData.item_price}</p>
-                            <Button variant="outlined" color="primary" href={this.props.itemData.item_url}>
-                                See in store
-                            </Button>
-                            <Carousel class="carousel">
-                                {this.images}
-                            </Carousel>
-                        </div>
-                        
+            <Transition config={{tension: 550, friction: 38}}
+                items={show}
+                from={{ opacity: 1, left: startLeft, right: startRight, top: startTop, bottom: startBottom }}
+                enter={{ opacity: 1, left: '30%', right: '30%', top: '5%', bottom: '5%' }}
+                leave={{ opacity: 0, left: startLeft, right: startRight, top: startTop, bottom: startBottom }}
+            >
+                {show => show && (props =>
+                    <div className='popup'>
+                        <OutsideAlerter closePopup={this.props.closePopup.bind(this)}>
+                            <div className='popup_inner' style={props}>
+                                <div className="scroll">
+
+                                    <Transition config={{tension: 350, friction: 28}}
+                                        items={show}
+                                        from={{ fontSize: 0 }} enter={{ fontSize: 20 }} leave={{ fontSize: 0 }}
+                                    >
+                                        {show => show && (props =>
+                                            <p className="popup_name" style={props}>{this.props.itemData.item_name}</p>
+                                        )}
+                                    </Transition>
+
+                                    <Transition config={{tension: 350, friction: 30}}
+                                        items={show}
+                                        from={{ fontSize: 0 }} enter={{ fontSize: 16 }} leave={{ fontSize: 0 }}
+                                    >
+                                        {show => show && (props =>
+                                            <p className="popup_vendor" style={props}>{this.props.itemData.item_vendor}</p>
+                                        )}
+                                    </Transition>
+
+                                    <Transition config={{tension: 350, friction: 30}}
+                                        items={show}
+                                        from={{ fontSize: 0 }} enter={{ fontSize: 16 }} leave={{ fontSize: 0 }}
+                                    >
+                                        {show => show && (props =>
+                                            <p className="popup_price" style={props}>{this.props.itemData.item_price}</p>
+                                        )}
+                                    </Transition>
+
+
+                                    
+
+                                    
+
+                                    <Carousel className="carousel">
+                                        {this.images}
+                                    </Carousel>
+
+                                </div>
+                            </div>
+                        </OutsideAlerter>
                     </div>
-                </OutsideAlerter>
-            </div>
+                )}
+            </Transition>
         );
     }
 }
 
-
+/*
+<Button variant="outlined" href={this.props.itemData.item_url}>
+                                        See in store
+                                    </Button>
+*/
 
 
 class OutsideAlerter extends Component {

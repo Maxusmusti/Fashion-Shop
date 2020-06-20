@@ -22,7 +22,7 @@ export default class ListView extends React.Component {
     render() {
         return (
             <div>
-            <div class="ListView"><Grid fluid><Col around="xs"><Row around="xs">{this.listItems}</Row></Col></Grid></div>
+                <div className="ListView"><Grid fluid><Col around="xs"><Row around="xs">{this.listItems}</Row></Col></Grid></div>
             </div>
         );
     }
@@ -30,7 +30,7 @@ export default class ListView extends React.Component {
 
 
 class ItemCard extends React.Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -38,56 +38,66 @@ class ItemCard extends React.Component {
         };
     }
 
-    togglePopup = () => this.setState(prevState => ({showPopup: !prevState.showPopup}))
+    togglePopup = () => this.setState(prevState => ({ showPopup: !prevState.showPopup }))
 
-    renderItemInfo() {
-        return (
-            <ItemInfo
-                name={this.props.itemData.item_name}
-                vendor={this.props.itemData.item_vendor}
-                price={this.props.itemData.item_price}
-            />
-        );
+    componentDidUpdate(prevState) {
+        if(prevState.showPopup !== this.state.showPopup){
+            const showScroll = !this.state.showPopup;
+            document.body.style.overflow = showScroll ? "scroll" : "hidden";
+        }
     }
 
-    renderItemImage() {
-        return (
-            <ItemImage
-                url={this.props.itemData.item_images[0]}
-                alt={this.props.itemData.item_name}
-            />
-        );
+    componentDidMount() {
+        this.rect = this.refs.myElement.getBoundingClientRect();
+    }
+    getRect() {
+        if(this.rect){
+            return this.refs.myElement.getBoundingClientRect()
+        }
+        return this.rect;
     }
 
     render() {
         return (
-            <div>
+            <div ref="myElement">
                 <div 
-                    class="itemcard"
-                    onClick={this.togglePopup} 
-                > 
-                    {this.renderItemImage()}
-                    {this.renderItemInfo()}
-                </div>
-                {this.state.showPopup ?
-                    <Popup
-                        itemData={this.props.itemData}
-                        closePopup={this.togglePopup.bind(this)}
+                    className="itemcard"
+                    onClick={this.togglePopup}
+                >
+                    <ItemImage
+                        url={this.props.itemData.item_images[0]}
+                        alt={this.props.itemData.item_name}
                     />
-                    : null
-                }  
+                    <ItemInfo
+                        name={this.props.itemData.item_name}
+                        vendor={this.props.itemData.item_vendor}
+                        price={this.props.itemData.item_price}
+                    />
+                </div>
+                <Popup
+                    itemData={this.props.itemData}
+                    closePopup={this.togglePopup.bind(this)}
+                    getItemCardRect={this.getRect.bind(this)}
+                    showPopup={this.state.showPopup}
+                />
             </div>
         );
     }
 }
 
+/*
+
+                
+
+*/
+
 class ItemInfo extends React.Component {
     render() {
         return (
-            <div class="iteminfo">
-                <p class="name">{this.props.name}</p>
-                <p class="vendor">{this.props.vendor}</p>
-                <p class="price">{this.props.price}</p>
+            <div className="iteminfo">
+                <p className="name">{this.props.name}</p>
+                <p className="vendor">{this.props.vendor}</p>
+                <p className="price">{this.props.price}</p>
             </div>
         );
     }
@@ -97,7 +107,7 @@ class ItemImage extends React.Component {
     render() {
         return (
             <img draggable="false"
-                class="itemimage"
+                className="itemimage"
                 src={this.props.url}
                 alt={"Image of " + this.props.alt}
             ></img>

@@ -16,24 +16,22 @@
     right: 30%;
     top: 5%;
     bottom: 5%;
-    margin: auto;
-    padding: 2rem;
+    margin: 0.5rem;
+    padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0rem 0rem 5rem rgba(0, 0, 0, 0.1);
     overflow-y: scroll;
     scrollbar-width: thin;
 }
 
-.popup_vendor {
-    font-size: 16px;
-}
-
-.popup_price {
-    font-size: 16px;
+.popup_name {
+    font-weight: bold;
+    padding: '2px';
+    margin: 0;
 }
 
 .popup_inner::-webkit-scrollbar {
-    width: 11px;
+    width: 3px;
 }
 
 .popup_inner::-webkit-scrollbar-track {
@@ -43,5 +41,5 @@
 .popup_inner::-webkit-scrollbar-thumb {
     background-color: var(--thumbBG);
     border-radius: 6px;
-    border: 3px solid var(--scrollbarBG);
+    border: 0px solid var(--scrollbarBG);
 }
