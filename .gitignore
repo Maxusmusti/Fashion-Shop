@@ -1,6 +1,3 @@
-flask_backend/static/react/*
-flask_backend/templates/*
-
 # Logs
 logs
 *.log
