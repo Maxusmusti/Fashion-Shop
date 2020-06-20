@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import Button from '@material-ui/core/Button';
-import { Spring, config, Transition } from 'react-spring/renderprops'
+//import Button from '@material-ui/core/Button';
+import { Transition } from 'react-spring/renderprops'
+
 import './Popup.css';
 
 export default class Popup extends React.Component {
@@ -24,7 +25,7 @@ export default class Popup extends React.Component {
 
     render() {
         const show = this.props.showPopup;
-        const itemCardRect = this.props.getItemCardRect();
+        const itemCardRect = this.props.itemCardBoundingRect;
         const startTop = itemCardRect ? 100 * itemCardRect.top / window.innerHeight + '%' : '0%';
         const startBottom = itemCardRect ? 100 * (1 - itemCardRect.bottom / window.innerHeight) + '%' : '0%';
         const startLeft = itemCardRect ? 100 * itemCardRect.left / window.innerWidth + '%' : '0%';
@@ -33,9 +34,9 @@ export default class Popup extends React.Component {
         return (
             <Transition config={{tension: 550, friction: 38}}
                 items={show}
-                from={{ opacity: 1, left: startLeft, right: startRight, top: startTop, bottom: startBottom }}
-                enter={{ opacity: 1, left: '30%', right: '30%', top: '5%', bottom: '5%' }}
-                leave={{ opacity: 0, left: startLeft, right: startRight, top: startTop, bottom: startBottom }}
+                from={{ opacity: 1, left: startLeft, right: startRight, top: startTop, bottom: startBottom}}
+                enter={{ opacity: 1, left: '30%', right: '30%', top: '5%', bottom: '5%'}}
+                leave={{ opacity: 0, left: startLeft, right: startRight, top: startTop, bottom: startBottom}}
             >
                 {show => show && (props =>
                     <div className='popup'>
@@ -69,11 +70,6 @@ export default class Popup extends React.Component {
                                             <p className="popup_price" style={props}>{this.props.itemData.item_price}</p>
                                         )}
                                     </Transition>
-
-
-                                    
-
-                                    
 
                                     <Carousel className="carousel">
                                         {this.images}

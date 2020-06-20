@@ -1,9 +1,10 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
-import './ListView.css';
 import Popup from './Popup';
 import data from './dummyData.json';
+
+import './ListView.css';
 
 export default class ListView extends React.Component {
     constructor(props) {
@@ -34,33 +35,27 @@ class ItemCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showPopup: false
+            showPopup: false,
+            boundingRect: null
         };
     }
 
-    togglePopup = () => this.setState(prevState => ({ showPopup: !prevState.showPopup }))
+    togglePopup = () => {
+        this.setState(prevState => ({ showPopup: !prevState.showPopup }));
+        this.setState(prevState => ({ boundingRect: this.refs.myElement.getBoundingClientRect() }));
+    }
 
     componentDidUpdate(prevState) {
-        if(prevState.showPopup !== this.state.showPopup){
+        if (prevState.showPopup !== this.state.showPopup) {
             const showScroll = !this.state.showPopup;
             document.body.style.overflow = showScroll ? "scroll" : "hidden";
         }
     }
 
-    componentDidMount() {
-        this.rect = this.refs.myElement.getBoundingClientRect();
-    }
-    getRect() {
-        if(this.rect){
-            return this.refs.myElement.getBoundingClientRect()
-        }
-        return this.rect;
-    }
-
     render() {
         return (
             <div ref="myElement">
-                <div 
+                <div
                     className="itemcard"
                     onClick={this.togglePopup}
                 >
@@ -76,28 +71,10 @@ class ItemCard extends React.Component {
                 </div>
                 <Popup
                     itemData={this.props.itemData}
-                    closePopup={this.togglePopup.bind(this)}
-                    getItemCardRect={this.getRect.bind(this)}
                     showPopup={this.state.showPopup}
+                    itemCardBoundingRect={this.state.boundingRect}
+                    closePopup={this.togglePopup.bind(this)}
                 />
-            </div>
-        );
-    }
-}
-
-/*
-
-                
-
-*/
-
-class ItemInfo extends React.Component {
-    render() {
-        return (
-            <div className="iteminfo">
-                <p className="name">{this.props.name}</p>
-                <p className="vendor">{this.props.vendor}</p>
-                <p className="price">{this.props.price}</p>
             </div>
         );
     }
@@ -115,4 +92,14 @@ class ItemImage extends React.Component {
     }
 }
 
-
+class ItemInfo extends React.Component {
+    render() {
+        return (
+            <div className="iteminfo">
+                <p className="name">{this.props.name}</p>
+                <p className="vendor">{this.props.vendor}</p>
+                <p className="price">{this.props.price}</p>
+            </div>
+        );
+    }
+}
