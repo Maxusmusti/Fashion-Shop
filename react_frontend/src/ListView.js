@@ -48,7 +48,7 @@ class ItemCard extends React.Component {
     componentDidUpdate(prevState) {
         if (prevState.showPopup !== this.state.showPopup) {
             const showScroll = !this.state.showPopup;
-            document.body.style.overflow = showScroll ? "scroll" : "hidden";
+            document.body.style.overflowY = showScroll ? "scroll" : "hidden";
         }
     }
 

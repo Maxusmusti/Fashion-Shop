@@ -6,7 +6,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    margin: auto;
+    margin: 0;
 }
 
 .popup_inner {
@@ -38,4 +38,14 @@
     background-color: var(--thumbBG);
     border-radius: 6px;
     border: 0px solid var(--scrollbarBG);
+}
+
+.closebutton {
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
+    padding: 0.1rem;
 }

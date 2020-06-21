@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import Close from '@material-ui/icons/Close';
 //import Button from '@material-ui/core/Button';
 import { Transition } from 'react-spring/renderprops'
+import * as easings from 'd3-ease'
 
 import './Popup.css';
 
@@ -32,19 +34,21 @@ export default class Popup extends React.Component {
         const startRight = itemCardRect ? 100 * (1 - itemCardRect.right / window.innerWidth) + '%' : '0%';
 
         return (
-            <Transition config={{tension: 550, friction: 38}}
+            <Transition config={{ duration: 200, easing: easings.easeCubic }}
                 items={show}
-                from={{ opacity: 1, left: startLeft, right: startRight, top: startTop, bottom: startBottom}}
-                enter={{ opacity: 1, left: '30%', right: '30%', top: '5%', bottom: '5%'}}
-                leave={{ opacity: 0, left: startLeft, right: startRight, top: startTop, bottom: startBottom}}
+                from={{ opacity: 1, left: startLeft, right: startRight, top: startTop, bottom: startBottom }}
+                enter={{ opacity: 1, left: '30%', right: '30%', top: '5%', bottom: '5%' }}
+                leave={{ opacity: 1, left: '30%', right: '30%', top: '100%', bottom: '-90%', fontSize: 0 }}
+                unique='true'
             >
                 {show => show && (props =>
                     <div className='popup'>
                         <OutsideAlerter closePopup={this.props.closePopup.bind(this)}>
                             <div className='popup_inner' style={props}>
+                                <Close onClick={this.props.closePopup} className="closebutton" />
                                 <div className="scroll">
 
-                                    <Transition config={{tension: 350, friction: 28}}
+                                    <Transition config={{ tension: 450, friction: 40 }}
                                         items={show}
                                         from={{ fontSize: 0 }} enter={{ fontSize: 20 }} leave={{ fontSize: 0 }}
                                     >
@@ -53,7 +57,7 @@ export default class Popup extends React.Component {
                                         )}
                                     </Transition>
 
-                                    <Transition config={{tension: 350, friction: 30}}
+                                    <Transition config={{ tension: 450, friction: 40 }}
                                         items={show}
                                         from={{ fontSize: 0 }} enter={{ fontSize: 16 }} leave={{ fontSize: 0 }}
                                     >
@@ -62,7 +66,7 @@ export default class Popup extends React.Component {
                                         )}
                                     </Transition>
 
-                                    <Transition config={{tension: 350, friction: 30}}
+                                    <Transition config={{ tension: 450, friction: 40 }}
                                         items={show}
                                         from={{ fontSize: 0 }} enter={{ fontSize: 16 }} leave={{ fontSize: 0 }}
                                     >
