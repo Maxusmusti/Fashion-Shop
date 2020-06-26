@@ -28,12 +28,12 @@ export default class Scroll extends Component {
             this.setState({
                 is_visible: false
             });
-            document.body.style.overflow = "scroll";
+            document.body.style.overflowY = "scroll";
         }
     }
 
     scrollUP = () => {
-        document.body.style.overflow = "hidden";
+        document.body.style.overflowY = "hidden";
         window.scrollTo({
             top: 0,
             left: 0,

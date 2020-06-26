@@ -2,7 +2,6 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import Popup from './Popup';
-import data from './dummyData.json';
 
 import './ListView.css';
 
@@ -10,11 +9,11 @@ export default class ListView extends React.Component {
     constructor(props) {
         super(props);
         this.listItems = []
-        for (let i = 0; i < data.length; i++) {
+        for (let i = 0; i < this.props.data.length; i++) {
             this.listItems.push(
                 <ItemCard
-                    itemData={data[i]}
-                    key={JSON.stringify(data[i])}
+                    itemData={this.props.data[i]}
+                    key={JSON.stringify(this.props.data[i])}
                 />
             )
         }
