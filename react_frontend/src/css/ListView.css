@@ -18,11 +18,11 @@ a {
 
 .itemcard {
     transition: 0.3s;
-    width: 250px;
     margin: 0.5rem;
     padding: 1.5rem;
     border-radius: 10px;
     cursor: pointer;
+    width: 12vw;  
 }
 
 .itemcard:hover {
@@ -49,4 +49,10 @@ a {
 
 .ListView {
     padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    align-content: space-around;
 }

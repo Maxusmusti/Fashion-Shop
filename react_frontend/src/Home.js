@@ -1,15 +1,12 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+
+import './css/Home.css'
 
 export default class Home extends React.Component {
     render() {
         return (
-            <div>
-                <p><Link to="/">HOME</Link></p>
-                <p><Link to="/mens">Mens</Link></p>
-                <p><Link to="/womens">Womens</Link></p>
-                <p><Link to="/raghav">weg</Link></p>
-                <h1>Designer District</h1>
+            <div className="lol">
+                <img className="lolol" src="https://yocee.in/wp-content/uploads/2015/03/raghav-mecheri.jpg" alt="weg"></img>
             </div>
         );
     }

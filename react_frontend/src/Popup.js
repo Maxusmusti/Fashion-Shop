@@ -13,7 +13,7 @@ import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 
 
-import './Popup.css';
+import './css/Popup.css';
 
 export default class Popup extends React.Component {
     constructor(props) {
@@ -32,6 +32,15 @@ export default class Popup extends React.Component {
             )
         }
     }
+
+    /*
+    -                <img draggable="false"
+-                    className="thumbnail"
+-                    src={props.itemData.item_images[i]}
+-                    alt={props.itemData.item_name}
+-                    key={props.itemData.item_images[i]}
+-                ></img>
+*/
 
     render() {
         const show = this.props.showPopup;

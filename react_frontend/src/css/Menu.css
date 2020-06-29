@@ -1,0 +1,47 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.menu {
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: white;
+    z-index: 1;
+}
+
+.fixed {
+    position: fixed
+}
+
+.filler {
+    width: 100%;
+    visibility: hidden
+}
+
+.menu-link-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.menu-link {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.menu-link:hover {
+    font-weight: bold;
+}
+
+.logo { 
+    font-size: 2em;
+    font-weight: bolder;
+    padding-left: 3rem;
+    padding-right: 2rem;
+}
+
+.active {
+    font-weight: bold;
+}

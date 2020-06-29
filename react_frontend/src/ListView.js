@@ -1,16 +1,19 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Trail } from 'react-spring/renderprops'
+import { Redirect } from 'react-router';
 
 import Popup from './Popup';
 
-import './ListView.css';
+import './css/ListView.css';
 
 export default class ListView extends React.Component {
     constructor(props) {
         super(props);
-        this.listItems = []
+        this.state = {
+            listItems: []
+        }
         for (let i = 0; i < this.props.data.length; i++) {
-            this.listItems.push(
+            this.state.listItems.push(
                 <ItemCard
                     itemData={this.props.data[i]}
                     key={JSON.stringify(this.props.data[i])}
@@ -19,10 +22,37 @@ export default class ListView extends React.Component {
         }
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.data !== prevState.listItems) {
+            const data = nextProps.data;
+            const newListItems = [];
+            for (let i = 0; i < data.length; i++) {
+                newListItems.push(
+                    <ItemCard
+                        itemData={data[i]}
+                        key={JSON.stringify(data[i])}
+                    />
+                )
+            }
+
+            return {
+                listItems: newListItems
+            }
+        }
+        return null;
+    }
+
     render() {
         return (
-            <div>
-                <div className="ListView"><Grid fluid><Col around="xs"><Row around="xs">{this.listItems}</Row></Col></Grid></div>
+            <div className="ListView">
+                <Trail
+                    config={{ tension: 400, friction: 30, precision: 0.1 }}
+                    items={this.state.listItems}
+                    keys={item => item.key}
+                    from={{ opacity: 0 }}
+                    to={{ opacity: 1 }}>
+                    {item => props => <span style={props}>{item}</span>}
+                </Trail>
             </div>
         );
     }
@@ -54,9 +84,30 @@ class ItemCard extends React.Component {
     render() {
         return (
             <div ref="myElement">
+                <a href={"/" + this.props.itemData.item_name + this.props.itemData.item_vendor}>
+                    <div className="itemcard">
+                        <ItemImage
+                            url={this.props.itemData.item_images[0]}
+                            alt={this.props.itemData.item_name}
+                        />
+                        <ItemInfo
+                            name={this.props.itemData.item_name}
+                            vendor={this.props.itemData.item_vendor}
+                            price={this.props.itemData.item_price}
+                        />
+                    </div>
+                </a>
+            </div >
+        );
+    }
+
+
+    /*
+        return (
+            <div ref="myElement">
                 <div
                     className="itemcard"
-                    onClick={this.togglePopup}
+                    onClick={}
                 >
                     <ItemImage
                         url={this.props.itemData.item_images[0]}
@@ -76,7 +127,7 @@ class ItemCard extends React.Component {
                 />
             </div>
         );
-    }
+    */
 }
 
 class ItemImage extends React.Component {
